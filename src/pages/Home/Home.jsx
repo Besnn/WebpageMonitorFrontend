@@ -42,9 +42,7 @@ function Home() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          //'Access-Control-Allow-Origin': '*',
-          //FIXME: why was this even here? sth to do with django I bet
-        },
+          },
         body: //form data
             JSON.stringify({ webpageURL: urlText })
       })
@@ -53,9 +51,7 @@ function Home() {
               if (import.meta.env.DEV) {
                 console.log('Value sent successfully')
               }
-              //FIXME: redirect here
               navigate("monitor")
-              this.props.history.push('/monitor')
             }
             else
             if (import.meta.env.DEV)
