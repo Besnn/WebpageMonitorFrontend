@@ -9,15 +9,22 @@ import Home from './pages/Home/Home.jsx'
 import './pages/Home/Home.css'
 
 import Monitor from './pages/Monitor/Monitor.jsx'
+import Login from './pages/Login/Login.jsx'
 import './App.css'
+
+import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
       <Router>
-        <Routes>
-          <Route path='/' element={ <Home /> } />
-          <Route path='/monitor' element={ <Monitor /> } />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path='/login' element={ <Login /> } />
+            <Route path='/' element={ <ProtectedRoute><Home /></ProtectedRoute> } />
+            <Route path='/monitor' element={ <ProtectedRoute><Monitor /></ProtectedRoute> } />
+          </Routes>
+        </AuthProvider>
       </Router>
   )
 }
