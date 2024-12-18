@@ -26,24 +26,27 @@ export function AuthProvider({ children }) {
 
   // Login function - you can replace this with actual API call
   const login = async (username, password) => {
-    // TODO: Replace this with actual API authentication
-    // For now, this is a simple mock implementation
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Mock authentication - accept any non-empty credentials
-        if (username && password) {
-          const user = {
-            username: username,
-            // Add other user properties as needed
-          }
-          setCurrentUser(user)
-          localStorage.setItem('user', JSON.stringify(user))
-          resolve(user)
-        } else {
-          reject(new Error('Invalid credentials'))
-        }
-      }, 500) // Simulate network delay
-    })
+    try {
+      // Replace with your actual backend API endpoint
+        const response = await fetch(import.meta.env.DEV ? import.meta.env.VITE_DEVELOPMENT_SERVER_URL + '/api/auth/login' : import.meta.env.VITE_PRODUCTION_SERVER_URL + '/api/auth/login', {
+            method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Invalid credentials')
+      }
+
+      const user = await response.json()
+      setCurrentUser(user)
+      localStorage.setItem('user', JSON.stringify(user))
+      return user
+    } catch (error) {
+      throw new Error(error.message || 'Login failed')
+    }
   }
 
   // Logout function
