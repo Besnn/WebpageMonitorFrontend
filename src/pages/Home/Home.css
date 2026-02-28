@@ -1,16 +1,40 @@
 #center-container {
     display: flex;
     flex-direction: column;
-    outline: 1px dotted red;
     margin: auto;
     width: 50em;
+}
+
+.intro-text {
+    margin: 2.5rem auto 1rem;
+    text-align: center;
+    max-width: 38rem;
+    color: #0b1f3a;
+}
+
+.intro-text h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.intro-text p {
+    margin: 0;
+    color: #5d6b82;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 #searchbox-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    outline: 1px solid green;
+}
+
+#searchbox-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #searchbox {
@@ -33,17 +57,287 @@
 }
 
 #searchbox-button {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 0.5em;
     height: 2em;
     border-radius: 10px;
+    line-height: 1;
+    padding: 0 1.25rem;
 }
 
-#frontpage-image {
+#searchbox-button:disabled {
+    background-color: #cbd5e1;
+    border-color: #cbd5e1;
+    color: #64748b;
+    opacity: 1;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.home-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+}
+
+.dashboard {
+    max-width: 72rem;
+    margin: 2rem auto 4rem;
+    padding: 0 2rem;
+}
+
+.dashboard-title {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    color: #0b1f3a;
+}
+
+.empty-dashboard {
+    color: #5d6b82;
+    font-size: 0.95rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 1.25rem;
+}
+
+/* Wrapper provides the relative positioning anchor for the menu */
+.site-card-wrap {
+    position: relative;
+}
+
+.site-card-wrap--pinned .site-card {
+    border: 2px solid #f59e0b;
+    box-shadow: 0 12px 18px rgba(245, 158, 11, 0.15);
+}
+
+.site-card {
+    border: 2px solid transparent;
+    background: #ffffff;
+    padding: 0;
+    border-radius: 1rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    box-shadow: 0 12px 18px rgba(15, 23, 42, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.site-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 24px rgba(15, 23, 42, 0.14);
+}
+
+/* ---- Dotted menu ---- */
+.card-menu {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    z-index: 10;
+}
+
+.card-menu-trigger {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(4px);
+    color: #374151;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    transition: background 0.12s;
+    padding: 0;
+}
+
+.card-menu-trigger:hover {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.card-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.6rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    list-style: none;
+    margin: 0;
+    padding: 0.3rem 0;
+    min-width: 10rem;
+    white-space: nowrap;
+}
+
+.card-menu-item {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 0.88rem;
+    color: #111827;
+    cursor: pointer;
     display: block;
-    width: 50%;
-    margin: auto;
-    margin-top: 5%;
-    margin-bottom: 1%;
-    border-radius: 25px;
+}
+
+.card-menu-item:hover {
+    background: #f3f4f6;
+}
+
+.card-menu-item--danger {
+    color: #dc2626;
+}
+
+.card-menu-item--danger:hover {
+    background: #fef2f2;
+}
+
+/* Pin badge inside card label */
+.site-pin-badge {
+    margin-right: 0.3rem;
+    font-size: 0.85rem;
+}
+
+/* Thumbnail image container — fixed aspect ratio (16:9 crop) */
+.site-card-thumb-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #e8edf5;
+    flex-shrink: 0;
+}
+
+.site-card-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.site-card:hover .site-card-thumb {
+    transform: scale(1.03);
+}
+
+/* Placeholder when no screenshot has been taken yet */
+.site-card-thumb-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #e8edf5 0%, #dbe4f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+}
+
+.site-card-thumb-placeholder span {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.site-card-thumb-placeholder--down {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
+
+.site-card-thumb-placeholder--down span {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ef4444;
+    letter-spacing: -0.5px;
+}
+
+.site-card-thumb-placeholder--down .site-card-thumb-sub {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fca5a5;
+}
+
+.site-card-thumb-placeholder--missing {
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+}
+
+.site-card-thumb-placeholder--missing span {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #7c3aed;
+    letter-spacing: -0.5px;
+}
+
+.site-card-thumb-placeholder--missing .site-card-thumb-sub {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #c4b5fd;
+}
+
+.site-card-thumb-icon {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+/* Text body below the thumbnail */
+.site-card-body {
+    padding: 0.9rem 1.1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.site-label {
+    font-weight: 600;
+    color: #0b1f3a;
+    word-break: break-all;
+    font-size: 0.9rem;
+}
+
+.site-action {
+    font-size: 0.82rem;
+    color: #4361ee;
+}
+
+@media (max-width: 768px) {
+    #center-container {
+        width: 100%;
+        padding: 0 1.5rem;
+    }
+
+    .intro-text {
+        margin-top: 2rem;
+        text-align: left;
+    }
+
+    .intro-text h1 {
+        font-size: 1.6rem;
+    }
+
+    #searchbox {
+        width: 100%;
+    }
+
+    #searchbox-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #searchbox-button {
+        width: 100%;
+    }
 }
